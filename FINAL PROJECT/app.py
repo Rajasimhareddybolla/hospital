@@ -17,6 +17,16 @@ page=0
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///list.db")
 
+@app.route("/")
+def index():
+   return redirect("/login")
+
+@app.route("/home")
+def home():
+    
+    return render_template("home.html")
+
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -54,12 +64,15 @@ def register():
                  gmail, 
                  phone_number, 
                  generate_password_hash(password),
+            
                 
                   )
          except:
             return ("Error")
     return redirect("/login")
-  return ("Ran into an error",200)
+  
+  return render_template("register.html")
+
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -82,16 +95,16 @@ def login():
           session["user_id"] = rows[0]["id"]
           return redirect("/")
     
-    else:
-      rows = db.execute("SELECT * FROM hospital WHERE mail = ?", request.form.get("username")
+       else:
+        rows = db.execute("SELECT * FROM hospital WHERE mail = ?", request.form.get("username")
           )
 
-      if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-        return ("Invalid username and/or password",403)
+        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+          return ("Invalid username and/or password",403)
 
-      session["user_id"] = rows[0]["id"]
-      name=db.execute("SELECT name FROM hospital WHERE id = ?", session["user_id"])
-      return redirect("/hospital")
+        session["user_id"] = rows[0]["id"]
+        name=db.execute("SELECT name FROM hospital WHERE id = ?", session["user_id"])
+        return redirect("/hospital")
 
-    else:
+  
     return render_template("login.html")
