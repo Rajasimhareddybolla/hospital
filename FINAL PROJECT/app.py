@@ -23,8 +23,14 @@ def index():
 
 @app.route("/home")
 def home():
+    hospital=db.execute(f"select name,phone_number,mail,image,description from hospital ");
+    dic = {}
+    return render_template("home.html",stocks=dic)
+
+@app.route("/hospital")
+def hospital():
     
-    return render_template("home.html")
+    return render_template("hospital.html")
 
 
 
@@ -35,20 +41,19 @@ def register():
     return render_template("register.html")
   if request.method == "POST":
     name = request.form.get("username")
-    gmail = request.form.get("gmail")
+    gmail = request.form.get("mail")
     phone_number = request.form.get("phone_number")
     age = request.form.get("age")
     gender = request.form.get("gender")
     password = request.form.get("password")
-    confirm_password = request.form.get("confirm_password")
-    if not (name or password or confirm_password):
+    confirm_password = request.form.get("confirm_Password")
+    print(password,confirm_password)
+    if not (name or password or confirm_Password):
       return ("Try filling all")
-    if not password == confirm_password:
-      return ("Passwords do not match")
     if password != confirm_password:
       return ("Passwords do not match")
     if request.form.get("type")=="user":
-      db.execute("INSERT INTO users (name, gmail, phone_number,hash,age,gender) VALUES(?,?,?,?,?,?)",
+      db.execute("INSERT INTO user (name, mail, phone_number,hash,age,gender) VALUES(?,?,?,?,?,?)",
                  name, 
                  gmail, 
                  phone_number, 
@@ -58,17 +63,14 @@ def register():
                   )
                   
     else:
-         try:
-            db.execute("INSERT INTO hospital (name, gmail, phone_number,hash,) VALUES(?,?,?,?)",
+         
+            db.execute("INSERT INTO hospital (name, mail, phone_number,hash) VALUES(?,?,?,?)",
                  name, 
                  gmail, 
                  phone_number, 
-                 generate_password_hash(password),
-            
-                
-                  )
-         except:
-            return ("Error")
+                 generate_password_hash(password)
+                   )
+        
     return redirect("/login")
   
   return render_template("register.html")
@@ -81,30 +83,47 @@ def login():
     session.clear()
     page=0
     if request.method == "POST":
-       if not request.form.get("username"):
+       if not request.form.get("mail"):
           return ("Enter username",403)
        elif not request.form.get("password"):
           return ("Enter password",403)
         
        if request.form.get("type")=="user":
-          rows = db.execute("SELECT * FROM users WHERE mail = ?", request.form.get("username"))
+          rows = db.execute("SELECT * FROM user WHERE mail = ?", request.form.get("mail"))
         
           if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
             return ("Invalid username and/or password",403)
 
           session["user_id"] = rows[0]["id"]
-          return redirect("/")
+          return redirect("/home")
+          
+          
     
        else:
-        rows = db.execute("SELECT * FROM hospital WHERE mail = ?", request.form.get("username")
+        rows = db.execute("SELECT * FROM hospital WHERE mail = ?", request.form.get("mail")
           )
 
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
           return ("Invalid username and/or password",403)
 
         session["user_id"] = rows[0]["id"]
-        name=db.execute("SELECT name FROM hospital WHERE id = ?", session["user_id"])
         return redirect("/hospital")
 
   
     return render_template("login.html")
+@app.route("/logout")
+def logout():
+    """Log user out"""
+    session.clear()
+    return redirect("/login")
+@app.route("/show_preview",methods=["GET","POST"])
+
+def show_preview():
+    if request.method =="GET":
+        return ("sorry error")
+    image_url = request.form.get("image")
+    hospital = db.execute("select * from hospital where image=?",image)
+
+    
+    return render_template("preview.html",hospital=hospital[0])
+ 
