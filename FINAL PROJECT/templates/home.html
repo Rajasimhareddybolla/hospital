@@ -110,27 +110,77 @@
     <a href="/logout">logout</a>
     
   </nav>
-  <section>
+  <section class="hospitals-container">
+
+
     {% for hospital in hospitals %}
-    <div>
-      <h2>{{ hospital.name }}</h2>
-      img src=="{{url_for('static',filename=hospital.image)}}" alt="Hospital Image"
-      
-    </div>
-    
-      <p style="color: rgb(99, 76, 122)"><span style="color: rgb(213, 9, 9);">phone_number</span>  :   {{hospital["phone_number"]}}</p>
-      <p style="color: rgb(99, 76, 122)"><span style="color: rgb(213, 9, 9);">email</span>  :   {{hospital["mail"]}}</p>
-      <p style="color: rgb(99, 76, 122)"><span style="color: rgb(213, 9, 9);">Description</span>  :   {{hospital["description"]}}</p>
-
-      
-    </div>
-    <nav>
-      <a href="/slot_booking">Appiontment</a>
-    </nav>
-    {%endfor %}
+      <div class="hospital-info">
+        <div>
+          <h2>{{ hospital["name"] }}</h2>
+          <nav>
+            <form method = "POST" , action = "/hospital_details">
+              <button type ="hidden" name ="hospitel" value ={{hospital.id}}></button>
+              <button type ="submit"><img src="{{ hospital.image }}" alt="Hospital Image"></button>
+            </form>
+          
+          </nav>
+        </div>
+        
+        <p style="color: rgb(99, 76, 122)">
+          <span style="color: rgb(213, 9, 9);">phone_number</span>  :   {{ hospital.phone_number }}
+        </p>
+        <p style="color: rgb(99, 76, 122)">
+          <span style="color: rgb(213, 9, 9);">email</span>  :   {{ hospital.mail }}
+        </p>
+        <p style="color: rgb(99, 76, 122)">
+          <span style="color: rgb(213, 9, 9);">Description</span>  :   {{ hospital.description }}
+        </p>
+      </div>
+    {% endfor %}
   </section>
-
   
 
 </body>
+<style>
+  .hospitals-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust the gap as needed */
+  }
+
+  .hospital-info {
+    flex: 1 1 200px; /* Adjust the basis as needed for your design */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust the gap as needed */
+    border: 2px solid transparent; /* Initial border color */
+    padding: 10px;
+    transition: transform 0.3s ease, border-color 0.3s ease; /* Smooth transition for transform and border color */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Soft shadow for depth */
+  }
+
+  .hospital-info:hover {
+    transform: scale(1.05); /* Zoom in effect */
+    border-color: #007bff; /* Change border color on hover */
+  }
+
+  .hospital-info > div, .hospital-info > nav {
+    flex: 1;
+  }
+
+  .image-container {
+    padding: 10px; /* Add padding around the image */
+    border: 1px solid #ddd; /* Light grey border */
+    margin-bottom: 10px; /* Space below the image container */
+    border-radius: 5px; /* Rounded corners for the container */
+    overflow: hidden; /* Ensures the image does not overflow the rounded corners */
+  }
+
+  .hospital-info img {
+    width: calc(100% - 20px); /* Adjust width to account for padding */
+    height: auto;
+    display: block; /* Remove any inline spacing */
+    margin: 0 auto; /* Center the image within the container */
+  }
+</style>
 </html>

@@ -16,7 +16,6 @@ Session(app)
 page=0
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///list.db")
-
 @app.route("/")
 def index():
    return redirect("/login")
@@ -35,6 +34,17 @@ def home():
 def hospital():
     
     return render_template("hospital.html")
+
+@app.route("/hospital_details")
+def hospital_details():
+    
+    if request.method =="GET":
+        return ("sorry error")
+    if request.method =="POST":
+     image_url = request.form.get("image")
+     image_url = db.execute("select * from hospital where image=?",image_url)
+
+    return render_template("hospital_details.html")
 
 
 
@@ -121,23 +131,6 @@ def logout():
     session.clear()
     return redirect("/login")
 
-@app.route("/slot_booking",methods=["GET","POST"])
-def slot_booking():
-    if request.method=="GET":
-        return ("sorry error")
-    if request.method=="POST":
-     name = request.form.get("name")
-     mail = request.form.get("mail")
-     phone_number = request.form.get("phone_number")
-     date = request.form.get("date")
-     time = request.form.get("time")
-     db.execute("INSERT INTO slot_booking (name,mail,phone_number,date,time) VALUES(?,?,?,?,?,?)",
-                 name, 
-                 mail, 
-                 phone_number, 
-                 date,
-                 time,
-                  )
-    return render_template("slot_booking.html")
+
 
  
