@@ -23,9 +23,13 @@ def index():
 
 @app.route("/home")
 def home():
-    hospital=db.execute(f"select name,phone_number,mail,image,description from hospital ");
-    dic = {}
-    return render_template("home.html",stocks=dic)
+    try:
+       hospitals=db.execute("select name,phone_number,mail,image,description from hospital ")
+    except Exception as e:
+       print(f"Database query failed:{e}")
+       hospitals = []
+    return render_template("home.html",hospitals=hospitals)
+
 
 @app.route("/hospital")
 def hospital():
@@ -116,14 +120,24 @@ def logout():
     """Log user out"""
     session.clear()
     return redirect("/login")
-@app.route("/show_preview",methods=["GET","POST"])
 
-def show_preview():
-    if request.method =="GET":
+@app.route("/slot_booking",methods=["GET","POST"])
+def slot_booking():
+    if request.method=="GET":
         return ("sorry error")
-    image_url = request.form.get("image")
-    hospital = db.execute("select * from hospital where image=?",image)
+    if request.method=="POST":
+     name = request.form.get("name")
+     mail = request.form.get("mail")
+     phone_number = request.form.get("phone_number")
+     date = request.form.get("date")
+     time = request.form.get("time")
+     db.execute("INSERT INTO slot_booking (name,mail,phone_number,date,time) VALUES(?,?,?,?,?,?)",
+                 name, 
+                 mail, 
+                 phone_number, 
+                 date,
+                 time,
+                  )
+    return render_template("slot_booking.html")
 
-    
-    return render_template("preview.html",hospital=hospital[0])
  
