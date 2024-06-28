@@ -24,6 +24,7 @@ def index():
 def home():
     try:
        hospitals=db.execute("select name,phone_number,mail,image,description from hospital ")
+       print(hospital[0])
     except Exception as e:
        print(f"Database query failed:{e}")
        hospitals = []
@@ -33,18 +34,21 @@ def home():
 @app.route("/hospital")
 def hospital():
     
+
     return render_template("hospital.html")
 
-@app.route("/hospital_details")
+@app.route("/hospital_details",methods=["GET","POST"])
 def hospital_details():
     
     if request.method =="GET":
         return ("sorry error")
     if request.method =="POST":
-     image_url = request.form.get("image")
-     image_url = db.execute("select * from hospital where image=?",image_url)
+          mail = request.form.get("mail")
+          print(mail)
+          hospital = db.execute("select * from hospital where mail=?",mail)
 
-    return render_template("hospital_details.html")
+
+    return render_template("hospital_details.html",hospital=hospital)
 
 
 
@@ -130,6 +134,30 @@ def logout():
     """Log user out"""
     session.clear()
     return redirect("/login")
+
+@app.route("/appiontment", methods=["GET", "POST"])
+def appiontment():
+  """Register user_completed"""
+  if request.method == "GET":
+    return("sorry error")
+  if request.method == "POST":
+    name = request.form.get("username")
+    gmail = request.form.get("mail")
+    phone_number = request.form.get("phone_number")
+    age = request.form.get("age")
+    gender = request.form.get("gender")
+    problem= request.form.get=("problem")
+    db.execute("INSERT INTO appiontment (name, mail, phone_number,problem,age,gender) VALUES(?,?,?,?,?,?)",
+                 name, 
+                 gmail, 
+                 phone_number, 
+                 problem,
+                  age,
+                  gender
+                  )
+    return redirect("/home")
+  
+  return render_template("appiontment.html")
 
 
 

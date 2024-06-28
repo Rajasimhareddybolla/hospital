@@ -119,7 +119,7 @@
           <h2>{{ hospital["name"] }}</h2>
           <nav>
             <form method = "POST" , action = "/hospital_details">
-              <button type ="hidden" name ="hospitel" value ={{hospital.id}}></button>
+              <button type ="hidden" name ="mail" value ={{ hospital.mail }}></button>
               <button type ="submit"><img src="{{ hospital.image }}" alt="Hospital Image"></button>
             </form>
           
