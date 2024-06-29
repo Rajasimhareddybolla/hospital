@@ -59,13 +59,15 @@
     <section>
         <img src="{{ hospital.image }}" alt="Hospital Image">
   
-        <h2>About the hospital</h2>
+        <h2>About the hospital:</h2>
         <p>{{hospital['description']}}</p>
     
   </section>
 
-</body>
  
-    <a href="/appiontment"> appiontment</a>
-
+<form method = "POST" , action = "/appiontment_">
+    <input type ="hidden" name ="mail" value ={{ hospital.mail }}>
+    <button type ="submit">appiontment</button>
+  </form>
+</body>
 </html>

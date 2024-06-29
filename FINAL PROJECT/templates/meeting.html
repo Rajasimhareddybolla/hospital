@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+    <title>Appiontments</title>
+  </head>
+  <body>
+    <section class="appiontment-container">
+      {% for appiontment in appiontments %}
+      <div class="appiontment-info">
+        <h4>{{ appiontment.hname }}</h4>
+        <img src="{{ appiontment.himage }}" alt="Hospital Image">
+        <h2>{{ appiontment.name }}</h2>
+        <h3>{{ appiontment.problem }}</h3>
+        
+       </div>
+      {% endfor %}
+
+    </section>
+
+
+      
+
+  </body>
+</html>

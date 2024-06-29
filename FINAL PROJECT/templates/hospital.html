@@ -58,10 +58,28 @@
   </style>
   <nav>
     <a href="/home">Home</a>
-    <a href="/appointment">appointment</a>
     <a href="/logout">logout</a>
     
   </nav>
+  <!DOCTYPE html>
+
+    <div class="hospital-container">
+        <h1>{{ hospital.name }}</h1> <!-- Displaying the hospital's name -->
+        <img src="{{ hospital.image }}" alt="Hospital Image"> <!-- Displaying the hospital's image -->
+        <h2>{{ hospital.details }}</h2> <!-- Displaying the hospital's details -->
+    </div>
+
+    <section class="appiontment-container">
+      {% for appiontment in appiontments %}
+      <div class="appiontment-info">
+        <h4>{{ appiontment.name }}</h4>
+        <h2>{{ appiontment.mail }}</h2>
+        <h3>{{ appiontment.problem }}</h3>
+        
+       </div>
+      {% endfor %}
+
+    </section>
 
   
 

@@ -16,6 +16,7 @@ Session(app)
 page=0
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///list.db")
+
 @app.route("/")
 def index():
    return redirect("/login")
@@ -33,9 +34,14 @@ def home():
 
 @app.route("/hospital")
 def hospital():
-    
+    hospital_id=session["hospital_id"]
+    hospital=db.execute("select * from hospital where id=?",hospital_id)
+    hname=hospital[0]["name"]
+    appiontments=db.execute("select * from appiontment where hname=?",hname)
 
-    return render_template("hospital.html")
+    return render_template("hospital.html",hospital=hospital[0],appiontments=appiontments)
+
+
 
 @app.route("/hospital_details",methods=["GET","POST"])
 def hospital_details():
@@ -156,8 +162,9 @@ def login():
 
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
           return ("Invalid username and/or password",403)
+        
 
-        session["user_id"] = rows[0]["id"]
+        session["hospital_id"] = rows[0]["id"]
         return redirect("/hospital")
 
   
@@ -174,6 +181,14 @@ def appiontment_():
        mail=request.form.get("mail")
        hospital = db.execute("select * from hospital where mail=?",mail)
        return render_template("appiontment.html",hospital=hospital[0])
+
+@app.route("/meeting")
+def meeting():
+    user_id=session["user_id"]
+    print(session)
+
+    appiontments=db.execute("select * from appiontment where by_user=?",user_id)
+    return render_template("meeting.html",appiontments=appiontments)
 
   
 

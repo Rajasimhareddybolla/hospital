@@ -106,7 +106,10 @@
   </style>
   <nav>
     <a href="/home">Home</a>
-    <a href="/Appiontment">Appiontments</a>
+     <a href="/meeting">Meeting</a>
+  
+   
+
     <a href="/logout">logout</a>
     
   </nav>
@@ -117,13 +120,11 @@
       <div class="hospital-info">
         <div>
           <h2>{{ hospital["name"] }}</h2>
-          <nav>
             <form method = "POST" , action = "/hospital_details">
-              <button type ="hidden" name ="mail" value ={{ hospital.mail }}></button>
+              <input type ="hidden" name ="mail" value ={{ hospital.mail }}>
               <button type ="submit"><img src="{{ hospital.image }}" alt="Hospital Image"></button>
             </form>
           
-          </nav>
         </div>
         
         <p style="color: rgb(99, 76, 122)">

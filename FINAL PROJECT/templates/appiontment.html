@@ -1,125 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>appiontment</title>
-    <style>        *{
-            margin: 0;
-            padding: 0;
-        }
-        body{
-            background-image: url("/static/index.jpg");
-            background-size: cover;
-            height: 100vh;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointment Booking</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+      <h1>Book an Appointment</h1>
+      <form id="appiontment" action="/appiontment" method="post">
+        <label for="">username : </label>
+        <br>
+        <input type ="disable" name ="hname" value ={{ hospital.name }}>
+        <input type ="hidden" name ="himage" value ={{ hospital.image }}>
 
-        }
-        div.main{
-            width: 400px;
-            margin: 100px auto 0px auto;
-        }
-        h2{
-            text-align: center;
-            padding: 20px;
-            font-family:sans-serif ;
-        }
-        div.register{
-            background-color: rgba(0,0,0,0.5);
-            width: 100%;
-            font-size:18px;
-            border-radius: 10px;
-            border: 1px solid rgb(255,255,255,0.3);
-            box-shadow: 2px 2px 15px rgb(255,255,255,0.3);
-            color: #fff;
-         }
-         form#register{
-            margin: 40px;
-            opacity: 40 ;
-         }
-         label{
-            font-family: sans-serif;
-            font-size: 18px;
-            font-style: italic;
-         }
-         input#name{
-            width:300px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            outline: 0;
-            padding: 7px;
-            background-color: #fff;
-            box-shadow: inset 1px 1px 5px rgba(0,0,0,0.3);
+        <br>
 
-         }
-         .button{
-            width: 300px;
-            padding: 7px;
-            font-size: 16px;
-            font-family: sans-serif;
-            border-radius: 3px;
-            background-color: rgb(255, 121, 1);
-            margin-bottom: 20px;
-            border: 1px solid rgba(250,250,250,0.3);
-         }
-         label,span,h2{
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
-         }
-         a{
-            text-decoration: none;
-         }</style>
-  
-<body data-new-gr-c-s-check-loaded="9.70.0" data-gr-ext-installed="" style="overflow-x: hidden; max-height: fit-content; display: flex;align-items: flex-start;">
-    <div class="main">
-    <div class="appiontment">
-      <h2 style="margin: 0px; padding: 0px;">Register Here  <span><img src="/static/favicon.ico" height="50px" alt="Favicon"></span></h2>
-    <form id="appointment" method="POST" action="/appointment">
-    <label for="username">Username: </label>
-    <br>
-    <input type="text" name="name" id="name" placeholder="Enter Your Name">
-    <br><br>
-    <label for="age">Your Age:</label>
-    <br>
-    <input type="number" name="age" id="age" placeholder="How Old Are You?">
-    <br><br>
-    <label for="">phone_number :</label>
-    <br>
-    <input type="number" name="phone_number" id="phone_number" placeholder="Number">
-    <br>
-    <label for="">Email :</label>
-    <input type="email" name="mail" id="name" placeholder="Enter Your valid Email">
-           
-    <br><br>
-    <label for="">Gender : </label>
-    <br><br>
-            <label for="">Problem</label>
-            <input type="text" name="problem" id="problem"placeholder="Enter Your Problem">
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="gender" id="male" value="male">
-            &nbsp;
-            <span id="male">Male</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="gender" id="female" value="female">
-            &nbsp;
-            <span id="male">Female</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <br><br>
-      
-           <button class="button" type="submit">Submit</button>
-           
-        </form>
-        <style>
-            a{
-                color: rgb(132, 92, 40);
-            }
-            a:hover{
-                color: dimgray;
-            }
-        </style>
+        <label for="">username : </label>
+        <br>
+        <input type="text" name="username" id="name" placeholder="Enter Your Name">
+        <br><br>
+        <label for="">Your Age :</label>
+        <br>
+        <input type="number" name="age" id="name" placeholder="How Old Are You?">
+        <br><br>
+        <label for="">phone_number :</label>
+        <br>
+        <input type="number" name="phone_number" id="phone_number" placeholder="Number">
+        <br>
+        <label for="">Email :</label>
+        <input type="email" name="mail" id="name" placeholder="Enter Your valid Email">
+        <br><br>
+        <label for="">problem :</label>
+        <input type="text" name="problem" id="problem" placeholder="What you are suffering from">
+        <br><br>
        
-    </div> <!-- end of register    -->
-    </div> <!-- end of main -->
-
+       
+        <label for="">Gender : </label>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" id="male" value="male">
+        &nbsp;
+        <span id="male">Male</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" id="female" value="female">
+        &nbsp;
+        <span id="male">Female</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <br><br>
+        
+          
+          <input type="submit" value="Book Appointment">
+      </form>
+  </div>
 
 </body>
 </html>
