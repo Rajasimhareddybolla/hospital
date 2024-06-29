@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointment Booking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); }
+      to { transform: translateY(0); }
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .container {
+      display: flex;
+      background-color: #fff;
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      max-width: 800px;
+      width: 100%;
+      animation: slideUp 1s ease-in-out;
+      justify-content: space-between;
+    }
+
+    .form-container,
+    .details-container {
+      flex: 1;
+      margin: 0 10px;
+    }
+
+    .form-container {
+      max-width: 50%;
+    }
+
+    .details-container {
+      text-align: center;
+      max-width: 50%;
+    }
+
+    .details-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="disable"],
+    input[type="hidden"] {
+      width: calc(100% - 20px);
+      padding: 12px 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="email"]:focus {
+      border-color: #00c6ff;
+      box-shadow: 0 0 8px rgba(0, 198, 255, 0.5);
+      outline: none;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    span {
+      margin-right: 20px;
+      color: #333;
+      font-size: 14px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #28a745;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #218838;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .back-button {
+      width: 100%;
+      padding: 12px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #f44336;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #e53935;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1em;
+    }
+
+    nav {
+      background-color: #444;
+      color: #fff;
+      text-align: center;
+      padding: 0.5em;
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 1em;
+      margin: 0 1em;
+      transition: color 0.3s ease-in-out;
+    }
+
+    nav a:hover {
+      color: bisque;
+    }
+    input[name="appointment_time"] {
+      width: 95%; /* Full width */
+      padding: 10px; /* Padding for better touch area and aesthetics */
+      margin: 10px 0; /* Margin for spacing around the element */
+      border: 1px solid #ccc; /* Subtle border */
+      border-radius: 4px; /* Rounded corners */
+      background-color: #f8f8f8; /* Light background color */
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+      font-family: Arial, sans-serif; /* Consistent font */
+      font-size: 16px; /* Readable text size */
+  }
+  
+  /* Style focus state to improve user experience */
+  input[name="appointment_time"]:focus {
+      border-color: #4A90E2; /* Highlight color on focus */
+      outline: none; /* Remove default focus outline */
+      box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.5); /* Custom focus glow */
+  }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="container">
+    <div class="form-container">
+      <h1>Book an Appointment</h1>
+      <form action="/appiontment" method="post">
+        <div class="input-group">
+          <label for="hname">Hospital Name:</label>
+          <input type="disable" name="hname" value="{{ hospital.name }}">
+          <input type="hidden" name="himage" value="{{ hospital.image }}">
+        </div>
+        <div class="input-group">
+          <label for="username">Username:</label>
+          <input type="text" name="username" id="username" placeholder="Enter Your Name">
+        </div>
+        <div class="input-group">
+          <label for="age">Your Age:</label>
+          <input type="number" name="age" id="age" placeholder="How Old Are You?">
+        </div>
+        <div class="input-group">
+          <label for="appointment_time">Choose appointment date and time:</label>
+          <input type="datetime-local" id="appointment_time" name="appointment_time">
+        </div>
+        <div class="input-group">
+          <label for="phone_number">Phone Number:</label>
+          <input type="number" name="phone_number" id="phone_number" placeholder="Number">
+        </div>
+        <div class="input-group">
+          <label for="problem">Problem:</label>
+          <input type="text" name="problem" id="problem" placeholder="Enter Your Concern">
+        </div>
+        <div class="input-group">
+          <label for="email">Email:</label>
+          <input type="email" name="mail" id="email" placeholder="Enter Your Valid Email">
+        </div>
+        <div class="input-group">
+          <label for="gender">Gender:</label>
+          <input type="radio" name="gender" id="male" value="male">
+          <span>Male</span>
+          <input type="radio" name="gender" id="female" value="female">
+          <span>Female</span>
+        </div>
+        <input type="submit" value="Book Appointment">
+      </form>
+      <button class="back-button" onclick="history.back()">Go Back</button>
+    </div>
+
+    <div class="details-container">
+      <img src="{{ hospital.image }}" alt="Hospital Image">
+      <h1>{{ hospital.name }}</h1>
+      <p>{{ hospital.description }}</p>
+    </div>
+  </div>
+</body>
+</html>

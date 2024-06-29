@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ hospital["name"] }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #E3F2FD;
+            color: #333;
+            line-height: 1.6;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        header {
+            background-color: #2196F3;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1s ease-in-out;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1.5s ease-in-out;
+        }
+
+        h1, h2 {
+            color: #1976D2;
+            margin-bottom: 20px;
+            animation: slideUp 2s ease-in-out;
+        }
+
+        p {
+            margin-bottom: 20px;
+            animation: slideUp 2s ease-in-out;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f7f9fc;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            animation: slideUp 2.5s ease-in-out;
+        }
+
+        button {
+            background-color: #64B5F6;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #42A5F5;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            background-color: #2196F3;
+            transform: translateY(0);
+        }
+
+        .back-button {
+            background-color: #f44336;
+            margin-top: 10px;
+        }
+
+        .back-button:hover {
+            background-color: #e53935;
+        }
+
+        .back-button:active {
+            background-color: #d32f2f;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            padding: 0.5em;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 1em;
+            margin: 0 1em;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav a:hover {
+            color: bisque;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>{{ hospital.name }}</h1>
+    </header>
+
+    <nav>
+        <a href="/home">Home</a>
+        <a href="/meeting">Meeting</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+    <section>
+        <img src="{{ hospital.image }}" alt="Hospital Image">
+
+        <h2>About the hospital:</h2>
+        <p>{{ hospital['description'] }}</p>
+        <form method="POST" action="/appiontment_">
+            <input type="hidden" name="mail" value="{{ hospital.mail }}">
+            <button type="submit">Book Appointment</button>
+        </form>
+        <button class="back-button" onclick="history.back()">Go Back</button>
+    </section>
+</body>
+
+</html>

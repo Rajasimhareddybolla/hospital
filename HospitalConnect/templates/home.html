@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOSPITAL</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            padding: 0.5em;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 1em;
+            margin: 0 1em;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav a:hover {
+            color: bisque;
+        }
+
+        .hospitals-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2em;
+            gap: 20px;
+        }
+
+        .hospital-info {
+            flex: 1 1 calc(30% - 40px);
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            border: 2px solid transparent;
+            max-width: 300px; /* Smaller width */
+        }
+
+        .hospital-info:hover {
+            transform: scale(1.05);
+            border-color: #007bff;
+        }
+
+        .hospital-info h2 {
+            color: #007bff;
+        }
+
+        .hospital-info p {
+            color: rgb(99, 76, 122);
+            margin-bottom: 10px;
+        }
+
+        .hospital-info span {
+            color: rgb(213, 9, 9);
+            font-weight: bold;
+        }
+
+        .hospital-info img {
+            width: 100%;
+            height: 180px; /* Uniform rectangular shape */
+            object-fit: cover; /* Ensure the image covers the area */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .hospital-info img:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Extra CSS for additional styling */
+        .btn-link {
+            padding: 0;
+            border: none;
+            background: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to Care Center</h1>
+    </header>
+
+    <nav>
+        <a href="/home">Home</a>
+        <a href="/meeting">Meeting</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+    <section class="hospitals-container">
+        <div class="hospital-info">
+            <div style="max-width:100%;overflow:hidden;color:red;width:300px;height:400px;"><div id="embedded-map-display" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/search?q=+rajampeta+hospital&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe></div><a class="googlemaps-made" rel="nofollow" href="https://www.bootstrapskins.com/themes" id="enable-map-data">premium bootstrap themes</a><style>#embedded-map-display .text-marker{}.map-generator{max-width: 100%; max-height: 100%; background: none;</style></div>
+            </div>
+        {% for hospital in hospitals %}
+            <div class="hospital-info">
+                <h2>{{ hospital["name"] }}</h2>
+                <form method="POST" action="/hospital_details">
+                    <input type="hidden" name="mail" value="{{ hospital.mail }}">
+                    <button type="submit" class="btn-link">
+                        <img src="{{ hospital.image }}" alt="Hospital Image">
+                    </button>
+                </form>
+                <p>
+                    <span>Phone Number:</span> {{ hospital.phone_number }}
+                </p>
+                <p>
+                    <span>Email:</span> {{ hospital.mail }}
+                </p>
+                <p>
+                    <span>Description:</span> {{ hospital.description }}
+                </p>
+            </div>
+        {% endfor %}
+
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Care Center. All rights reserved.</p>
+    </footer>
+</body>
+</html>
